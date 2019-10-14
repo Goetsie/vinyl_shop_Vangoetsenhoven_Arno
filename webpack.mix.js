@@ -11,5 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
+// Enable versioning
+// Each time your code changes, a new hashed query string file will be generated
+mix.version();
+
+// If you don't like the pop-up (and beep) every time Mix compiles a new version
+mix.disableNotifications();
+
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+mix.browserSync({
+    proxy: 'vinyl_shop.test',
+    port: 3000
+});
+

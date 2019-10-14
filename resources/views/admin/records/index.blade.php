@@ -1,27 +1,11 @@
-<h1>Records</h1>
+@extends('layouts.template')
 
-{{--<ul>--}}
-{{--    <li>Record 1</li>--}}
-{{--    <li>Record 2</li>--}}
-{{--    <li>Record 3</li>--}}
-{{--</ul>--}}
-
-<ul>
-
-<!--    --><?php
-//
-//    //    foreach ($records as $record) {
-//    //        echo "<li> $record </li> \n";
-//    //    }
-//
-//    ?>
-
-    @foreach ($records as $record)
-        <li>{{ $record }}</li>
-    @endforeach
-
-
-</ul>
-
-
+@section('main')
+    <h1>Records</h1>
+    <ul>
+        @foreach ($records as $record)
+            <li>{{ $record }}</li>
+        @endforeach
+    </ul>
+@endsection
 
