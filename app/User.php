@@ -10,6 +10,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function orders()
+    {
+        return $this->hasMany('App\Order');   // a user has many orders
+    }
+
     /**
      * The attributes that are mass assignable.
      *
