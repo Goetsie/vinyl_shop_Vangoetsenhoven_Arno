@@ -10648,3 +10648,11 @@ main {
   min-height: 500px;
 }
 
+.cardShopMaster a {
+  display: none;
+}
+
+.cardShopMaster :hover {
+  cursor: pointer;
+}
+

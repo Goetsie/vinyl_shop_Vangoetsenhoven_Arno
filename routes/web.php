@@ -19,6 +19,11 @@
 
 Route::view('/', 'home');
 
+Route::get('shop', 'ShopController@index');
+Route::get('shop/{id}', 'ShopController@show');
+// Route naar de alternative shop page
+Route::get('shop_alt', 'ShopController@alternate');
+
 //Route::get('contact-us', function () {
 //    //return 'Contact info';
 //    return view('contact');

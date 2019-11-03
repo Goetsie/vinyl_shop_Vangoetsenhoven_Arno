@@ -2,3 +2,13 @@
 main {
     min-height: 500px;
 }
+
+.cardShopMaster{
+    // Hide the buttons --> dit zijn linken
+    a{
+        display: none;
+    }
+    :hover{
+        cursor: pointer;
+    }
+}
