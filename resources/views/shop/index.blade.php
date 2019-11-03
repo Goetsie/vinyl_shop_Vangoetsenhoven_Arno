@@ -17,8 +17,8 @@
                     <option value="%">All genres</option>
                     @foreach($genres as $genre)
                         {{--                        <option value="{{ $genre->id }}">{{ ucfirst($genre->name) }} ({{ $genre->records_count }})</option>--}}
-                        <option value="{{ $genre->id }}" {{ (request()->genre_id == $genre->id ? 'selected' : '')
-                            }}>{{ $genre->name }}
+                        <option value="{{ $genre->id }}" {{ (request()->genre_id == $genre->id ? 'selected' : '') }}>{{
+                            $genre->name }}
                         </option>
                     @endforeach
                 </select>
@@ -27,25 +27,40 @@
         </div>
     </form>
     <hr>
-    {{--    Give feedback if the collection is empty--}}
-    @if ($records->count() == 0)
-        <div class="alert alert-danger alert-dismissible fade show">
-            @if (request()->genre_id == "%")
-                Can't find any artist or album with <b>'{{ srequest()->artist }}'</b> for this genre
-            @else
-                {{--            Hier zou niet de id moeten komen te staan maar de naam van het genre--}}
-                {{--            Kijk exercise 4 Master page --}}
-                Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre
-                <b>'{{ request()->genre_id }}'</b>
-            @endif
+    {{--        Give feedback if the collection is empty--}}
+        @if ($records->count() == 0)
+            <div class="alert alert-danger alert-dismissible fade show">
+                @if (request()->genre_id == "%")
+                    Can't find any artist or album with <b>'{{ request()->artist }}'</b> for this genre
+                @else
+{{--                                Hier zou niet de id moeten komen te staan maar de naam van het genre--}}
+{{--                                Kijk exercise 4 Master page--}}
+                    Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre
+                    <b>'{{ request()->genre_id }}'</b>
+                @endif
+{{--                Can't find any artist or album with <b>'{{ srequest()->artist }}'</b> for this genre--}}
 
+{{--                            Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre <b>'{{ $genres[request()->genre_id]->name }}'</b>--}}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </div>
+        @endif
 
-            {{--            Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre <b>'{{ $genres[request()->genre_id]->name }}'</b>--}}
-            <button type="button" class="close" data-dismiss="alert">
-                <span>&times;</span>
-            </button>
-        </div>
-    @endif
+{{--    @if ($records->count() == 0)--}}
+{{--        <div class="alert alert-danger alert-dismissible fade show">--}}
+{{--            @if (request()->genre_id == "%")--}}
+{{--                Can't find any artist or album with <b>'{{ srequest()->artist }}'</b> for this genre--}}
+{{--            @else--}}
+{{--                Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre--}}
+{{--                <b>'{{ request()->genre_id }}'</b>--}}
+{{--            @endif--}}
+{{--            --}}{{--            Can't find any artist or album with <b>'{{ request()->artist }}'</b> for this genre--}}
+{{--            <button type="button" class="close" data-dismiss="alert">--}}
+{{--                <span>&times;</span>--}}
+{{--            </button>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 
 
     {{ $records->links() }}

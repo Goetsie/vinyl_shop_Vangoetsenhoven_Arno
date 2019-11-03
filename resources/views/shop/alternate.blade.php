@@ -40,7 +40,6 @@
         @foreach ($records as $record)
             @if ($record->genre_id == $genre->id)
                 <li><a href="/shop/{{ $record->id }}">{{ $record->artist }} - {{ $record->title }}</a> | Price: € {{  number_format($record->price,2) }} | Stock: {{ $record->stock }}</li>
-
             @endif
 {{--            <p>{{ $genre->name }} {{ $genre->id }} <a href="">{{ $record->artist }} - {{ $record->title }}</a> | Price: € {{ $record->price }} | Stock: {{ $record->stock }}</p>--}}
         @endforeach
