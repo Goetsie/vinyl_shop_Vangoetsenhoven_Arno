@@ -17,6 +17,12 @@
 //    return 'The Vinyl Shop';
 //});
 
+Auth::routes();
+
+Route::get('logout', 'Auth\LoginController@logout');
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
 Route::view('/', 'home');
 
 Route::get('shop', 'ShopController@index');
@@ -30,11 +36,22 @@ Route::get('shop_alt', 'ShopController@alternate');
 //});
 
 // Dit is een andere manier (korter, niet altijd bruikbaar) om het vorige opteroepen.
-Route::view('contact-us', 'contact');
+//Route::view('contact-us', 'contact');
+
+Route::get('contact-us', 'ContactUsController@show');
+Route::post('contact-us', 'ContactUsController@sendEmail');
 
 // Group for admin
-Route::prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // In plaats van 404 bij admin wordt doorgewezen naar admin/records
     Route::redirect('/', 'records');
     Route::get('records', 'Admin\RecordController@index');
 });
+
+Route::get('contact-us', function () {
+    $me = ['name' => env('MAIL_FROM_NAME')];
+    return view('contact', $me);
+});
+
+
+

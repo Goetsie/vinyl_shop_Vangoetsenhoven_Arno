@@ -1,6 +1,15 @@
 export function hello(){
     console.log('The Vinyl Shop JavaScript works! 🙂');
 }
+
+$(function(){
+    $('nav i.fas').addClass('fa-fw mr-1');
+    $('input[required], select[required], textarea[required]').each(function () {
+        $(this).closest('.form-group')
+            .find('label')
+            .append('<sup class="text-danger mx-1">*</sup>');
+    });
+});
 // convert the time to a more readable format
 export function to_mm_ss(duration) {
     let seconds = parseInt((duration / 1000) % 60);

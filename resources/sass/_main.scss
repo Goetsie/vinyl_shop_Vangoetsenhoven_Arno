@@ -4,8 +4,8 @@ main {
 }
 
 .cardShopMaster{
-    // Hide the buttons --> dit zijn linken
-    a{
+    // Hide the buttons inside cards with this class
+    .btn{
         display: none;
     }
     :hover{

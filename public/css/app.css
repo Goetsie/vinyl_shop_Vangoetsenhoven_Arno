@@ -10648,7 +10648,7 @@ main {
   min-height: 500px;
 }
 
-.cardShopMaster a {
+.cardShopMaster .btn {
   display: none;
 }
 

@@ -37002,7 +37002,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "to_mm_ss", function() { return to_mm_ss; });
 function hello() {
   console.log('The Vinyl Shop JavaScript works! 🙂');
-} // convert the time to a more readable format
+}
+$(function () {
+  $('nav i.fas').addClass('fa-fw mr-1');
+  $('input[required], select[required], textarea[required]').each(function () {
+    $(this).closest('.form-group').find('label').append('<sup class="text-danger mx-1">*</sup>');
+  });
+}); // convert the time to a more readable format
 
 function to_mm_ss(duration) {
   var seconds = parseInt(duration / 1000 % 60);
