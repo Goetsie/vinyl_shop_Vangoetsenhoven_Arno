@@ -9,6 +9,11 @@ $(function(){
             .find('label')
             .append('<sup class="text-danger mx-1">*</sup>');
     });
+    // Enable bootstrap tooltip buttons
+    $('[data-toggle="tooltip"]').tooltip({
+        // tags gebruiken in tooltip
+        'html' : true,
+    });
 });
 // convert the time to a more readable format
 export function to_mm_ss(duration) {

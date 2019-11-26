@@ -37007,6 +37007,11 @@ $(function () {
   $('nav i.fas').addClass('fa-fw mr-1');
   $('input[required], select[required], textarea[required]').each(function () {
     $(this).closest('.form-group').find('label').append('<sup class="text-danger mx-1">*</sup>');
+  }); // Enable bootstrap tooltip buttons
+
+  $('[data-toggle="tooltip"]').tooltip({
+    // tags gebruiken in tooltip
+    'html': true
   });
 }); // convert the time to a more readable format
 
