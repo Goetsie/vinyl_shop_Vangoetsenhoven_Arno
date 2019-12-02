@@ -1,4 +1,3 @@
-<!-- Moet niet gesloten worden als alleen maar php in bestand staat-->
 <?php
 
 /*
@@ -41,18 +40,24 @@ Route::get('shop_alt', 'ShopController@alternate');
 Route::get('contact-us', 'ContactUsController@show');
 Route::post('contact-us', 'ContactUsController@sendEmail');
 
+
+
 // Group for admin
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    // In plaats van 404 bij admin wordt doorgewezen naar admin/records
-    Route::redirect('/', 'records');
-    Route::resource('genres', 'Admin\GenreController');
-    Route::get('records', 'Admin\RecordController@index');
-});
 
 Route::get('contact-us', function () {
     $me = ['name' => env('MAIL_FROM_NAME')];
     return view('contact', $me);
 });
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    // In plaats van 404 bij admin wordt doorgewezen naar admin/records
+    Route::redirect('/', 'records');
+    Route::get('genres/qryGenres', 'Admin\GenreController@qryGenres');
+    Route::resource('genres', 'Admin\GenreController');
+    Route::resource('users', 'Admin\UserController');
+    Route::get('records', 'Admin\RecordController@index');
+});
+
 
 Route::redirect('user', '/user/profile');
 Route::middleware(['auth'])->prefix('user')->group(function () {
@@ -61,7 +66,9 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     // Password routes
     Route::get('password', 'User\PasswordController@edit');
     Route::post('password', 'User\PasswordController@update');
+
 });
+
 
 
 

@@ -16,7 +16,12 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return view('admin.genres.index');
+        $genres = Genre::orderBy('name')
+            ->withCount('records')
+            ->get();
+        $result = compact('genres');
+        \Facades\App\Helpers\Json::dump('$result');
+        return view('admin.genres.index', $result);
     }
 
     /**
@@ -26,7 +31,9 @@ class GenreController extends Controller
      */
     public function create()
     {
-        return redirect('admin/genres');
+        $genre = new Genre();
+        $result = compact('genre');
+        return view('admin.genres.create', $result);
     }
 
     /**
@@ -44,10 +51,8 @@ class GenreController extends Controller
         $genre = new Genre();
         $genre->name = $request->name;
         $genre->save();
-        return response()->json([
-            'type' => 'success',
-            'text' => "The genre <b>$genre->name</b> has been added"
-        ]);
+        session()->flash('success', "The genre <b>$genre->name</b> has been added");
+        return redirect('admin/genres');
     }
 
     /**
@@ -69,7 +74,9 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        return redirect('admin/genres');
+        $result = compact('genre');
+        \Facades\App\Helpers\Json::dump($result);
+        return view('admin.genres.edit', $result);
     }
 
     /**
@@ -86,12 +93,8 @@ class GenreController extends Controller
         ]);
         $genre->name = $request->name;
         $genre->save();
-//        session()->flash('success', 'The genre has been updated');
-//        return redirect('admin/genres');
-        return response()->json([
-            'type' => 'success',
-            'text' => "The genre <b>$genre->name</b> has been updated"
-        ]);
+        session()->flash('success', 'The genre has been updated');
+        return redirect('admin/genres');
     }
 
     /**
@@ -103,18 +106,7 @@ class GenreController extends Controller
     public function destroy(Genre $genre)
     {
         $genre->delete();
-        return response()->json([
-            'type' => 'success',
-            'text' => "The genre <b>$genre->name</b> has been deleted"
-        ]);
+        session()->flash('success', "The genre <b>$genre->name</b> has been deleted");
+        return redirect('admin/genres');
     }
-
-    public function qryGenres()
-    {
-        $genres = Genre::orderBy('name')
-            ->withCount('records')
-            ->get();
-        return $genres;
-    }
-
 }

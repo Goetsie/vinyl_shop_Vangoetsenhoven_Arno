@@ -14,6 +14,12 @@ $(function(){
         // tags gebruiken in tooltip
         'html' : true,
     });
+
+    Noty.overrideDefaults({
+        layout: 'topRight',
+        theme: 'bootstrap-v4',
+        timeout: 3000
+    });
 });
 // convert the time to a more readable format
 export function to_mm_ss(duration) {
