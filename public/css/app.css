@@ -10983,3 +10983,12 @@ main {
   cursor: not-allowed;
 }
 
+a.btn.disabled {
+  pointer-events: all;
+  cursor: not-allowed;
+}
+
+a.btn.disabled [data-toggle=tooltip] {
+  display: none;
+}
+

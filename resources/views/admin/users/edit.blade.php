@@ -24,7 +24,7 @@
             <input type="email" name="email" id="email"
                    class="form-control @error('email') is-invalid @enderror"
                    placeholder="Email"
-{{--                   minlength="3"--}}
+                   {{--                   minlength="3"--}}
                    required
                    value="{{ old('email', $user->email) }}">
             @error('email')
@@ -33,8 +33,18 @@
         </div>
 
         <div class="form-group">
-            <input type="checkbox" name="active" value="active" @if ($user['active']==1) checked @endif >Active
-            <input type="checkbox" name="admin" value="admin" class="ml-4" @if ($user['admin']==1) checked @endif>Admin
+            <input type="checkbox" name="active" value="active"
+                   @if (old('_token'))
+                        @if (old('active'))checked @endif
+                @else
+                   @if ($user['active']==1) checked @endif
+                @endif>Active
+            <input type="checkbox" name="admin" value="admin" class="ml-4"
+                   @if (old('_token'))
+                        @if (old('admin'))checked @endif
+                   @else
+                        @if ($user['admin']==1) checked @endif
+                   @endif>Admin
         </div>
 
         <button type="submit" class="btn btn-success">Save user</button>

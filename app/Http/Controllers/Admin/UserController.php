@@ -6,6 +6,7 @@ use App\Helpers\Json;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -21,100 +22,131 @@ class UserController extends Controller
      * */
     public function index(Request $request)
     {
+
+        $sortArray = [
+            [
+//                'name' => 'Name (A \'&#8594;\' Z)',
+//                'name' => 'Name (A ' . chr ( 26 ) : string . ' Z)',
+//                'name' => 'Name (A \&#8594; Z)',
+                'name' => 'Name (A -> Z)',
+                'sortBy' => 'name',
+                'sortDirection' => 'asc',
+            ],
+            [
+                'name' => 'Name (Z -> A)',
+//                'name' => 'Name (Z &#8594; A)',
+                'sortBy' => 'name',
+                'sortDirection' => 'desc',
+            ],
+            [
+//                'name' => 'Email (A &#8594; Z)',
+                'name' => 'Email (A -> Z)',
+                'sortBy' => 'email',
+                'sortDirection' => 'asc',
+            ],
+            [
+                'name' => 'Email (Z -> A)',
+//                'name' => 'Email (Z &#8594; A)',
+                'sortBy' => 'email',
+                'sortDirection' => 'desc',
+            ],
+            [
+                'name' => 'Not active',
+                'sortBy' => 'active',
+                'sortDirection' => 'asc',
+            ],
+            [
+                'name' => 'Admin',
+                'sortBy' => 'admin',
+                'sortDirection' => 'desc',
+            ],
+        ];
+
         $name_email = '%' . $request->input('nameSearch') . '%'; //OR $name_email = '%' . $request->nameSearch . '%';
-        $sort = $request->input('sort');
+        $sort = intval($request->input('sort'));
 
-        switch ($sort) {
-            case "nameZA":
-                $users = User::orderBy('name', 'desc')
-                ->where(function ($query) use ($name_email) {
-                    $query->where('name', 'like', $name_email);
-                })
-                ->orWhere(function ($query) use ($name_email) {
-                    $query->where('email', 'like', $name_email);
-                })
-                ->paginate(12);
-                break;
-            case "emailAZ":
-                $users = User::orderBy('email')
-                    ->where(function ($query) use ($name_email) {
-                        $query->where('name', 'like', $name_email);
-                    })
-                    ->orWhere(function ($query) use ($name_email) {
-                        $query->where('email', 'like', $name_email);
-                    })
-                    ->paginate(12);
-                break;
-            case "emailZA":
-                $users = User::orderBy('email', 'desc')
-                    ->where(function ($query) use ($name_email) {
-                        $query->where('name', 'like', $name_email);
-                    })
-                    ->orWhere(function ($query) use ($name_email) {
-                        $query->where('email', 'like', $name_email);
-                    })
-                    ->paginate(12);
-                break;
-            case "active":
-                $users = User::orderBy('active')
-                    ->where(function ($query) use ($name_email) {
-                        $query->where('name', 'like', $name_email);
-                    })
-                    ->orWhere(function ($query) use ($name_email) {
-                        $query->where('email', 'like', $name_email);
-                    })
-                    ->paginate(12);
-                break;
-            case "admin":
-                $users = User::orderBy('admin', 'desc')
-                    ->where(function ($query) use ($name_email) {
-                        $query->where('name', 'like', $name_email);
-                    })
-                    ->orWhere(function ($query) use ($name_email) {
-                        $query->where('email', 'like', $name_email);
-                    })
-                    ->paginate(12);
-                break;
-            default:
-                $users = User::orderBy('name')
-                ->where(function ($query) use ($name_email) {
-                    $query->where('name', 'like', $name_email);
-                })
-                ->orWhere(function ($query) use ($name_email) {
-                    $query->where('email', 'like', $name_email);
-                })
-                ->paginate(12);
-        }
+//        $sortArray = array("asc", "desc", "active", "admin");
 
-//        if ($request->input('sort') == "nameZA") {
-//            $users = User::orderBy('name', 'desc')
-//                ->where(function ($query) use ($name_email) {
-//                    $query->where('name', 'like', $name_email);
-//                })
-//                ->orWhere(function ($query) use ($name_email) {
-//                    $query->where('email', 'like', $name_email);
-//                })
-//                ->paginate(12);
-//        } else {
-//            $users = User::orderBy('name')
-//                ->where(function ($query) use ($name_email) {
-//                    $query->where('name', 'like', $name_email);
-//                })
-//                ->orWhere(function ($query) use ($name_email) {
-//                    $query->where('email', 'like', $name_email);
-//                })
-//                ->paginate(12);
+
+        $users = User::orderBy($sortArray[$sort]['sortBy'], $sortArray[$sort]['sortDirection'])
+//            via de tweede order by wordt bij sorteren op admin of active ook gesorteert op naam
+//            ->orderBy('name', 'asc')
+            ->where('name', 'like', $name_email)
+            ->orwhere('email', 'like', $name_email)
+            ->paginate(12)
+            ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
+
+//        // array gebruiken met opties en waarden SWITCH CASE
+//        switch ($sort) {
+//            case "nameZA":
+//                $users = User::orderBy('name', 'desc')
+//                    ->where(function ($query) use ($name_email) {
+//                        $query->where('name', 'like', $name_email);
+//                    })
+//                    ->orWhere(function ($query) use ($name_email) {
+//                        $query->where('email', 'like', $name_email);
+//                    })
+//                    ->paginate(12)
+//                    // wat moet er bij de sort komen???????
+//                    ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
+//                break;
+//            case "emailAZ":
+//                $users = User::orderBy('email')
+//                    ->where(function ($query) use ($name_email) {
+//                        $query->where('name', 'like', $name_email);
+//                    })
+//                    ->orWhere(function ($query) use ($name_email) {
+//                        $query->where('email', 'like', $name_email);
+//                    })
+//                    ->paginate(12)
+//                    ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
+//                break;
+//            case "emailZA":
+//                $users = User::orderBy('email', 'desc')
+//                    ->where(function ($query) use ($name_email) {
+//                        $query->where('name', 'like', $name_email);
+//                    })
+//                    ->orWhere(function ($query) use ($name_email) {
+//                        $query->where('email', 'like', $name_email);
+//                    })
+//                    ->paginate(12)
+//                    ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
+//                break;
+//            case "active":
+//                $users = User::orderBy('active')
+//                    ->where(function ($query) use ($name_email) {
+//                        $query->where('name', 'like', $name_email);
+//                    })
+//                    ->orWhere(function ($query) use ($name_email) {
+//                        $query->where('email', 'like', $name_email);
+//                    })
+//                    ->paginate(12)
+//                    ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
+//                break;
+//            case "admin":
+//                $users = User::orderBy('admin', 'desc')
+//                    ->where(function ($query) use ($name_email) {
+//                        $query->where('name', 'like', $name_email);
+//                    })
+//                    ->orWhere(function ($query) use ($name_email) {
+//                        $query->where('email', 'like', $name_email);
+//                    })
+//                    ->paginate(12)
+//                    ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
+//                break;
+//            default:
+//                $users = User::orderBy('name')
+//                    ->where(function ($query) use ($name_email) {
+//                        $query->where('name', 'like', $name_email);
+//                    })
+//                    ->orWhere(function ($query) use ($name_email) {
+//                        $query->where('email', 'like', $name_email);
+//                    })
+//                    ->paginate(12)
+//                    ->appends(['nameSearch' => $request->input('nameSearch'), 'sort' => $request->input('sort')]);
 //        }
 
-//        $users = User::orderBy('name')
-//            ->where(function ($query) use ($name_email) {
-//                $query->where('name', 'like', $name_email);
-//            })
-//            ->orWhere(function ($query) use ($name_email) {
-//                $query->where('email', 'like', $name_email);
-//            })
-//            ->paginate(12);
-        $result = compact('users');
+        $result = compact('users', 'sortArray');
         \Facades\App\Helpers\Json::dump($result);
         return view('admin.users.index', $result);
 //        return view('admin.users.index');
@@ -211,8 +243,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        session()->flash('success', "The user <b>$user->name</b> has been deleted");
-        return redirect('admin/users');
+        // Als de user het toch heeft kunnen fixen om zijn eigen profiel te verwijderen zorgen we ervoor dat dit niet mogelijk is
+        if (Auth::user()->id == $user->id) {
+            session()->flash('danger', "Dear <b>$user->name</b>, <br> <br>In order not to exclude yourselve from <small>(the admin section of)</small> the application, you cannot delete your own profile. <br>If you have any questions or dissatisfactions, feel free to contact us.");
+            return redirect('admin/users');
+        } else {
+            $user->delete();
+            session()->flash('success', "The user <b>$user->name</b> has been deleted");
+            return redirect('admin/users');
+        }
     }
 }

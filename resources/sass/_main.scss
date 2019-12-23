@@ -16,3 +16,14 @@ main {
 .btn[disabled] {
     cursor: not-allowed;
 }
+
+a.btn.disabled {
+    pointer-events: all;
+    cursor: not-allowed;
+    //.tooltip{
+    //    display: none;
+    //}
+    [data-toggle="tooltip"] {
+        display: none;
+    }
+}

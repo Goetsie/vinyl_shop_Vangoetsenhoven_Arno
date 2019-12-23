@@ -120,7 +120,7 @@ class ShopController extends Controller
                     ->where('genre_id', 'like', $genre_id);
             })
             ->orderBy('artist')
-            ->paginate(100)
+            ->paginate(12)
             ->appends(['artist' => $request->input('artist'), 'genre_id' => $request->input('genre_id')]);
 
 

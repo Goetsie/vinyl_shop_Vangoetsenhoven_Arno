@@ -60,6 +60,19 @@ class CreateUsersTable extends Migration
             );
         }
 
+        // Add 10 dummy test inside a loop
+        for ($i = 0; $i <= 10; $i++) {
+            DB::table('users')->insert(
+                [
+                    'name' => "TEST User $i",
+                    'email' => "test_user_$i@mailinator.com",
+                    'password' => \Illuminate\Support\Facades\Hash::make("testuser$i"),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ]
+            );
+        }
+
     }
 
     /**
