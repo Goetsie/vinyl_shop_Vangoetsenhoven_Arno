@@ -113,6 +113,7 @@
                                @endif
                                data-name="{{ $user->name }}"
                                data-id="{{ $user->id }}"
+                               data-email="{{ $user->email }}"
                             >
                                 <i class="fas fa-trash-alt"></i>
                             </a>
@@ -204,6 +205,7 @@
                 } else {
                     let name = $(this).data('name');
                     let id = $(this).data('id');
+                    let email = $(this).data('email');
 
                     console.log('Delete button for user', name, 'pressed');
 
@@ -224,7 +226,7 @@
                             Noty.button(btnText, `btn ${btnClass}`, function () {
                                 console.log('Delete user' + name + ' is confirmed');
                                 // Delete the user and close the modal
-                                deleteUser(id, name);
+                                deleteUser(id, email);
                                 modal.close();
                             }),
                             Noty.button('Cancel', 'btn btn-secondary ml-2', function () {
@@ -307,14 +309,17 @@
                         // get the new data from the user from the controller
                         let id = data.id;
                         let name = data.name;
-                        let oldName = data.oldName;
+                        let oldName = data.oldName; // old name geeft problemen bij bv itf user 1 als oude naam
                         let email = data.email;
+                        let oldEmail = data.oldEmail;
                         let admin = data.admin;
                         let active = data.active;
 
                         console.log('Update the updated user in the table with id', id, ', name:', name, ', email:', email, ', active:', active, ', admin:', admin);
                         console.log('new name:', name);
                         console.log('old name:', oldName);
+                        console.log('new email:', email);
+                        console.log('old email:', oldEmail);
 
                         // $("td:contains('" + name + "')").parent().css("background-color", "red");
 
@@ -329,7 +334,7 @@
                         }
 
                         // Change the table row from the user that is edited
-                        $("td:contains('" + oldName + "')").parent().html('<td>' + id + '</td> <td>' + name + '</td> <td>' + email + ' </td> <td>' + iconActive + '</td> <td>' + iconAdmin + '</td> <td>' +
+                        $("td:contains('" + oldEmail + "')").parent().html('<td>' + id + '</td> <td>' + name + '</td> <td>' + email + ' </td> <td>' + iconActive + '</td> <td>' + iconAdmin + '</td> <td>' +
                             '                            <div class="btn-group btn-group-sm">' +
                             '                                <a href="#!"' +
                             '                                   class="btn btn-outline-success btn-edit-user @if (auth()->user()->id == $user->id)disabled @endif"' +
@@ -347,6 +352,7 @@
                             '                                <a href="#!"class="btn btn-outline-danger btn-delete"' +
                             '                                        data-toggle="tooltip" title="Delete ' + name + '"' +
                             '                                        data-name="' + name + '"' +
+                            '                                        data-email="' + email + '"' +
                             '                                        data-id="' + id + '">' +
                             '                                    <i class="fas fa-trash-alt"></i>' +
                             '                               </a>' +
@@ -383,7 +389,7 @@
         });
 
         // Delete a user from the database and table (pagination not 100% correct)
-        function deleteUser(id, name) {
+        function deleteUser(id, email) {
             console.log('id', id);
             let pars = {
                 '_token': '{{ csrf_token() }}',
@@ -400,7 +406,7 @@
                     // Rebuild the table
                     // loadTable();
                     if (data.type == 'success') {
-                        $("td:contains('" + name + "')").parent().remove();
+                        $("td:contains('" + email + "')").parent().remove();
                     }
                 })
                 .fail(function (e) {

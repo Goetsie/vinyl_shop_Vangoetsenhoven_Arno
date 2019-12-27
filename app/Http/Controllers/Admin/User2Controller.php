@@ -149,6 +149,7 @@ class User2Controller extends Controller
 
             // Oude naam opslaan om daarna de juiste rij uit de tabel aan te kunnen passen
             $oldName = $user->name;
+            $oldEmail = $user->email;
             $user->name = $request->name;
             $user->email = $request->email;
 
@@ -179,6 +180,7 @@ class User2Controller extends Controller
                 "name" => $user->name,
                 "oldName" => $oldName,
                 'email' => $user->email,
+                "oldEmail" => $oldEmail,
                 'active' => $user->active,
                 'admin' => $user->admin
             ]);
