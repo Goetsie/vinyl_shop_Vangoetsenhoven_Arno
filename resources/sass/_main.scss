@@ -26,4 +26,11 @@ a.btn.disabled {
     [data-toggle="tooltip"] {
         display: none;
     }
+    &:focus{
+        box-shadow: none;
+    }
 }
+
+//a.btn.disabled:focus{
+//    box-shadow: none;
+//}

@@ -40146,7 +40146,7 @@ $(function () {
   Noty.overrideDefaults({
     layout: 'topRight',
     theme: 'bootstrap-v4',
-    timeout: 3000
+    timeout: 4000
   });
 }); // convert the time to a more readable format
 
