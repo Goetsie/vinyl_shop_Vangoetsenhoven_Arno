@@ -61,7 +61,7 @@ class User2Controller extends Controller
 
         $users = User::orderBy($sortArray[$sort]['sortBy'], $sortArray[$sort]['sortDirection'])
             // Via de tweede order by wordt bij sorteren op admin of active ook gesorteert op naam
-            // ->orderBy('name', 'asc')
+             ->orderBy('name', 'asc')
             ->where('name', 'like', $name_email)
             ->orwhere('email', 'like', $name_email)
             ->paginate(12)
@@ -80,7 +80,7 @@ class User2Controller extends Controller
 
     public function create()
     {
-        return redirect(admin / users2);
+        return redirect(admin/users2);
     }
 
     /**
@@ -105,7 +105,7 @@ class User2Controller extends Controller
 
     public function show(User $user)
     {
-        return redirect(admin / users2);
+        return redirect(admin/users2);
     }
 
     /**
@@ -117,7 +117,7 @@ class User2Controller extends Controller
 
     public function edit(User $user)
     {
-        return redirect(admin / users2);
+        return redirect(admin/users2);
     }
 
     /**

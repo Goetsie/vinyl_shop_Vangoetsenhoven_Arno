@@ -35,19 +35,32 @@ class CreateUsersTable extends Migration
                     'password' => \Illuminate\Support\Facades\Hash::make('admin1234'),
                     'created_at' => now(),
                     'email_verified_at' => now()
-                ],
-                [
-                    'name' => 'Jane Doe',
-                    'email' => 'jane.doe@example.com',
-                    'admin' => false,
-                    'password' => \Illuminate\Support\Facades\Hash::make('user1234'),
-                    'created_at' => now(),
-                    'email_verified_at' => now()
-                ]
+                ], [
+                'name' => 'Jane Doe',
+                'email' => 'jane.doe@example.com',
+                'admin' => false,
+                'password' => \Illuminate\Support\Facades\Hash::make('user1234'),
+                'created_at' => now(),
+                'email_verified_at' => now()
+            ], [
+                'name' => 'Jill van Rethij',
+                'email' => 'jillekevanrethij@gmail.com',
+                'admin' => true,
+                'password' => \Illuminate\Support\Facades\Hash::make('admin1234'),
+                'created_at' => now(),
+                'email_verified_at' => now()
+            ],[
+                'name' => 'Anna Smith',
+                'email' => 'anna.smith@example.com',
+                'admin' => false,
+                'password' => \Illuminate\Support\Facades\Hash::make('user1234'),
+                'created_at' => now(),
+                'email_verified_at' => now()
+            ]
             ]
         );
 
-        // Add 40 dummy users inside a loop
+        // Add 41 dummy users inside a loop
         for ($i = 0; $i <= 40; $i++) {
             DB::table('users')->insert(
                 [
@@ -60,13 +73,27 @@ class CreateUsersTable extends Migration
             );
         }
 
-        // Add 10 dummy test inside a loop
+        // Add 11 test users inside a loop
         for ($i = 0; $i <= 10; $i++) {
             DB::table('users')->insert(
                 [
                     'name' => "TEST User $i",
                     'email' => "test_user_$i@mailinator.com",
                     'password' => \Illuminate\Support\Facades\Hash::make("testuser$i"),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ]
+            );
+        }
+
+        // Add 4 admin users inside a loop
+        for ($i = 0; $i <= 3; $i++) {
+            DB::table('users')->insert(
+                [
+                    'name' => "TEST Admin $i",
+                    'email' => "test_admin$i@mailinator.com",
+                    'admin' => true,
+                    'password' => \Illuminate\Support\Facades\Hash::make("admin1234"),
                     'created_at' => now(),
                     'email_verified_at' => now()
                 ]

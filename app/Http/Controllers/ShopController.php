@@ -30,24 +30,30 @@ class ShopController extends Controller
             ->orderBy('artist')
             ->paginate(12)
             ->appends(['artist' => $request->input('artist'), 'genre_id' => $request->input('genre_id')]);
-        foreach ($records as $record) {
-            if (!$record->cover) {
-                $record->cover = 'https://coverartarchive.org/release/' . $record->title_mbid . '/front-250.jpg';
-            }
-        }
-        // Shorter version (with null coalescing operator)
-//        $records = Record::with('genre')->get();
+
+        // Longer version with if not (if there is no cover found or cover is null)
 //        foreach ($records as $record) {
-//            $record->cover = $record->cover ?? "https://coverartarchive.org/release/$record->title_mbid/front-250.jpg";
+//            if (!$record->cover) {
+//                $record->cover = 'https://coverartarchive.org/release/' . $record->title_mbid . '/front-250.jpg';
+//            }
 //        }
 
+        // Shorter version (with null coalescing operator)
+        foreach ($records as $record) {
+            // Als er een cover bij het record hoort gebruik dan deze cover, anders zoek naar de cover op music brainz
+            $record->cover = $record->cover ?? "https://coverartarchive.org/release/$record->title_mbid/front-250.jpg";
+        }
+
+
         $genres = Genre::orderBy('name')
-            ->has('records')        // only genres that have one or more records
-            ->withCount('records')  // add a new property 'records_count' to the Genre models/objects
+            ->has('records')        // Only genres that have one or more records
+            ->withCount('records')  // Add a new property 'records_count' to the Genre models/objects, to show how manny records the genre has
             ->get()
             ->transform(function ($item, $key) {
-                // Set first letter of name to uppercase and add the counter
-                $item->name = ucfirst($item->name) . ' (' . $item->records_count . ')';
+                // Set first letter of name to uppercase and add the counter (new name to use in dropdown)
+                $item->nameWithCount = ucfirst($item->name) . ' (' . $item->records_count . ')';
+                // Name of the genre with a capital
+                $item->name = ucfirst($item->name);
                 //  Remove all fields that you don't use inside the view
                 unset($item->created_at, $item->updated_at, $item->records_count);
                 return $item;

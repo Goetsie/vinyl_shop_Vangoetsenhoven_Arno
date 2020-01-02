@@ -18,7 +18,7 @@
                     @foreach($genres as $genre)
                         {{--                        <option value="{{ $genre->id }}">{{ ucfirst($genre->name) }} ({{ $genre->records_count }})</option>--}}
                         <option value="{{ $genre->id }}" {{ (request()->genre_id == $genre->id ? 'selected' : '') }}>{{
-                            $genre->name }}
+                            $genre->nameWithCount }}
                         </option>
                     @endforeach
                 </select>
@@ -31,16 +31,14 @@
         @if ($records->count() == 0)
             <div class="alert alert-danger alert-dismissible fade show">
                 @if (request()->genre_id == "%")
-                    Can't find any artist or album with <b>'{{ request()->artist }}'</b> for this genre
+                    Can't find any artist or album with <b>'{{ request()->artist }}'</b>
                 @else
-{{--                                Hier zou niet de id moeten komen te staan maar de naam van het genre--}}
-{{--                                Kijk exercise 4 Master page--}}
-                    Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre
-                    <b>'{{ request()->genre_id }}'</b>
+                    @foreach($genres as $genre)
+                        @if (request()->genre_id == $genre->id)
+                            Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre <b>'{{ $genre->name }}'</b>
+                        @endif
+                    @endforeach
                 @endif
-{{--                Can't find any artist or album with <b>'{{ srequest()->artist }}'</b> for this genre--}}
-
-{{--                            Can't find any artist or album with <b>'{{ request()->artist }}'</b> for the genre <b>'{{ $genres[request()->genre_id]->name }}'</b>--}}
                 <button type="button" class="close" data-dismiss="alert">
                     <span>&times;</span>
                 </button>

@@ -14,47 +14,29 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name"
-                               class="form-control @error('name') is-invalid @enderror"
+{{--                               class="form-control @error('name') is-invalid @enderror"--}}
+                               class="form-control"
                                placeholder="Name"
                                minlength="2"
                                required
                                value="">
-                        @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+{{--                        @error('name')--}}
+{{--                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                        @enderror--}}
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email"
-                               class="form-control @error('email') is-invalid @enderror"
+{{--                               class="form-control @error('email') is-invalid @enderror"--}}
+                               class="form-control"
                                placeholder="Email"
-{{--                               minlength="2"--}}
                                required
-                               value="{{ old('email', $user->email) }}">
-                        @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                               value="">
+{{--                               value="{{ old('email', $user->email) }}">--}}
+{{--                        @error('email')--}}
+{{--                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                        @enderror--}}
                     </div>
-
-                    {{--                    <div class="form-group">--}}
-                    {{--                        <label for="active">Email</label>--}}
-                    {{--                        <input type="text" name="active" id="active"--}}
-                    {{--                               class="form-control @error('email') is-invalid @enderror"--}}
-                    {{--                               placeholder="active"--}}
-                    {{--                               --}}{{--                   minlength="3"--}}
-                    {{--                               required--}}
-                    {{--                               @if('active' == 1)--}}
-                    {{--                               value="EEEEEN"--}}
-                    {{--                        @endif--}}
-                    {{--                        @if ('active' == 0)--}}
-                    {{--                               value="NULLLLLL"--}}
-                    {{--                               @endif--}}
-
-                    {{--                        >--}}
-                    {{--                        @error('email')--}}
-                    {{--                        <div class="invalid-feedback">{{ $message }}</div>--}}
-                    {{--                        @enderror--}}
-                    {{--                    </div>--}}
 
                     <div class="form-group">
                         <input type="checkbox" name="active" id="active" value="active"

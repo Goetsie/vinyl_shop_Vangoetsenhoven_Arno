@@ -148,7 +148,7 @@ class UserController extends Controller
 
         $result = compact('users', 'sortArray');
         \Facades\App\Helpers\Json::dump($result);
-        return view('admin.users.index', $result);
+        return view('admin.users.indexBASIC', $result);
 //        return view('admin.users.index');
     }
 

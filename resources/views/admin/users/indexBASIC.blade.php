@@ -111,7 +111,7 @@
             $('#nameSearch').blur(function () {
                 $('#searchFormUsers').submit();
             });
-            // submit form when changing dropdown list 'genre_id'
+            // submit form when changing the dropdown list
             $('#sort').change(function () {
                 $('#searchFormUsers').submit();
             });

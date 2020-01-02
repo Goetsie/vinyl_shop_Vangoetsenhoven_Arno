@@ -121,10 +121,30 @@
                         </div>
                     </td>
                 </tr>
+
+{{--                @if (empty($user->id))--}}
+{{--                    <tr>--}}
+{{--                        <td>1</td>--}}
+{{--                        <td>1</td>--}}
+{{--                        <td>1</td>--}}
+{{--                        <td>1</td>--}}
+{{--                        <td>1</td>--}}
+{{--                        <td>1</td></tr>--}}
+{{--                    <div class="alert alert-danger alert-dismissible fade show">--}}
+{{--                        Can't find any artist or album with <b>'{{ request()->artist }}'</b> for this genre--}}
+{{--                        <button type="button" class="close" data-dismiss="alert">--}}
+{{--                            <span>&times;</span>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+
             @endforeach
             </tbody>
         </table>
     </div>
+
+{{--     Foutmelding als er niets gevonden is?--}}
+
 
     {{--    Paginatie tonen--}}
     {{ $users->links() }}
@@ -371,7 +391,7 @@
                     .fail(function (e) {
                         console.log('error', e);
                         // e.responseJSON.errors contains an array of all the validation errors
-                        console.log('error message', e.responseJSON.errors);
+                        console.log('error message:', e.responseJSON.errors);
                         // Loop over the e.responseJSON.errors array and create an ul list with all the error messages
                         let msg = '<ul>';
                         $.each(e.responseJSON.errors, function (key, value) {
