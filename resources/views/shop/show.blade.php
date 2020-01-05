@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Record')
+@section('title', $record->title)
 
 @section('main')
     <h1>{{ $record->title }}</h1>
@@ -64,14 +64,29 @@
                     // loop over each track
                     $.each(data.media[0].tracks, function (key, value) {
 
+/*
+                        var lengthRecord;
+
+                        if(value.length){
+                            lengthRecord = value.length;
+                            console.log('value.lenght');
+                        }else{
+                            lengthRecord = value.recording.length;
+                            console.log('value.recording.lenght');
+                        }
+
+
+                        <td>${vinylShop.to_mm_ss(lengthRecord)}</td>
+
+                        */
 
                         // Maak een tabel row
-                        // hier zou ook iets van if kunnen staan voor de lengte van de liedjes
                         let row = `<tr>
                             <td>${value.position}</td>
                             <td>${value.title}</td>
                             <td>${vinylShop.to_mm_ss(value.recording.length)}</td>
                         </tr>`
+
 
                         // Origanal
                         // In record met 31 staat de lengte van de track niet op deze positie maar wel dieper in value.recording.length
