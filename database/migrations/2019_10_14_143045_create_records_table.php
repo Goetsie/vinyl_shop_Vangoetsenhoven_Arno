@@ -406,6 +406,66 @@ class CreateRecordsTable extends Migration
                     'title_mbid' => '38d30631-9341-4e62-9d10-2cd372b3e0f4',
                     'cover' => null,
                     'price' => 22.50
+                ],
+                [
+                    // Zelfingevoegde record (CD)
+                    'genre_id' => 6,
+                    'created_at' => now(),
+                    'stock' => 5,
+                    'artist' => 'Post Malone',
+                    'artist_mbid' => 'b1e26560-60e5-4236-bbdb-9aa5a8d5ee19',
+                    'title' => 'Beerbongs & bentleys',
+                    'title_mbid' => 'bdf93dcf-5c64-4ad2-80e8-0779a03ec218',
+                    'cover' => null,
+                    'price' => 24.99
+                ],
+                [
+                    // Zelfingevoegde record (CD)
+                    'genre_id' => 6,
+                    'created_at' => now(),
+                    'stock' => 5,
+                    'artist' => 'Post Malone',
+                    'artist_mbid' => 'b1e26560-60e5-4236-bbdb-9aa5a8d5ee19',
+                    'title' => 'Hollywood’s Bleeding',
+                    'title_mbid' => 'fe2c8953-e3d5-40fe-a855-cdb5eb8357a0',
+                    'cover' => null,
+                    'price' => 24.99
+                ],
+                [
+                    // Zelfingevoegde record (CD)
+                    'genre_id' => 1,
+                    'created_at' => now(),
+                    'stock' => 9,
+                    'artist' => 'John Travolta',
+                    'artist_mbid' => '94f4c61e-5cf3-4cba-ab3e-9bd5be99f6ab',
+                    'title' => 'Greased Lightnin\'',
+                    'title_mbid' => '90433da3-dc37-476f-b32a-454cf6d10a19',
+                    'cover' => null,
+                    'price' => 19.99
+                ],
+                [
+                    // Zelfingevoegde record (vinyl)
+                    'genre_id' => 4,
+                    'created_at' => now(),
+                    'stock' => 2,
+                    'artist' => 'Iron Maiden',
+                    'artist_mbid' => 'ca891d65-d9b0-4258-89f7-e6ba29d83767',
+                    'title' => 'The Number of the Beast',
+                    'title_mbid' => '5aa782e6-d87a-3ec1-af46-ff68c76cf8fc',
+                    'cover' => null,
+                    'price' => 29.99
+                ],
+                [
+                    // Zelfingevoegde record (CD)
+                    'genre_id' => 10,
+                    'created_at' => now(),
+                    'stock' => 2,
+                    'artist' => 'Arno Hintjens',
+                    'artist_mbid' => '03a82b66-d021-4754-aca2-399d51ee6199',
+                    'title' => 'Ratata',
+                    'title_mbid' => 'cb71afae-f301-48fc-bb8e-21ebf6416d91',
+                    'cover' => 'https://coverartarchive.org/release-group/78f78d08-32e3-323d-987b-edbbed203f9c/front.jpg',
+                    'price' => 9.99
                 ]
             ]
         );
