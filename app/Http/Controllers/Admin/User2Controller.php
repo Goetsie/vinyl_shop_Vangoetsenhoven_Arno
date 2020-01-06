@@ -143,6 +143,7 @@ class User2Controller extends Controller
 
             // Serverside validatie
             $this->validate($request, [
+//                Hier wordt gezegt dat de naam uniek moet zijn, maar bij edit own profile niet...
                 'name' => 'required|min:2|unique:users,name,' . $user->id,
                 'email' => 'required|email|unique:users,email,' . $user->id
             ]);

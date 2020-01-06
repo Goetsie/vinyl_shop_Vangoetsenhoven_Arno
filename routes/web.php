@@ -16,6 +16,13 @@
 //    return 'The Vinyl Shop';
 //});
 
+// Generate errors on selfmade page
+Route::get('mysillypage', function () {
+    return abort('404');
+    // abort with error 403 (custom error message)
+    // return abort('403', 'My Silly Error');
+});
+
 Auth::routes();
 
 Route::get('logout', 'Auth\LoginController@logout');
@@ -41,17 +48,29 @@ Route::get('contact-us', 'ContactUsController@show');
 Route::post('contact-us', 'ContactUsController@sendEmail');
 
 
-
-// Group for admin
-
 Route::get('contact-us', function () {
     $me = ['name' => env('MAIL_FROM_NAME')];
     return view('contact', $me);
 });
 
+// Email verification TEST
+//Auth::routes(['verify' => true]);
+//
+//Route::get('profile', function () {
+//    // Only verified users may enter...
+//    Route::get('contact-us', 'ContactUsController@show');
+//    Route::post('contact-us', 'ContactUsController@sendEmail');
+//    Route::get('shop', 'ShopController@index');
+//    Route::get('vertest', function () {
+//        return'your email has been verified';
+//    });
+//})->middleware('verified');
+
+// Group for authenticated & admin
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // In plaats van 404 bij admin wordt doorgewezen naar admin/records
     Route::redirect('/', 'records');
+    // Route specific for the qryGenres function/querry with all the genres in JSON format (before recource route!)
     Route::get('genres/qryGenres', 'Admin\GenreController@qryGenres');
     Route::resource('genres', 'Admin\GenreController');
     Route::resource('users', 'Admin\UserController');
@@ -61,8 +80,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
 Route::redirect('user', '/user/profile');
+// Group for authenticated users(also admins than)
 Route::middleware(['auth'])->prefix('user')->group(function () {
+    // get the form
     Route::get('profile', 'User\ProfileController@edit');
+    // uodate profile
     Route::post('profile', 'User\ProfileController@update');
     // Password routes
     Route::get('password', 'User\PasswordController@edit');

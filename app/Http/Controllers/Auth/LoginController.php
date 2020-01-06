@@ -25,6 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+//    Redirect to home
     protected $redirectTo = '/';
 
     /**

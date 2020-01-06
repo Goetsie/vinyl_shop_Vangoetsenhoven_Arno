@@ -4,12 +4,13 @@
 
 @section('main')
 
-{{--    <h1>I'm {{ $name }}</h1>--}}
-{{--    <p>You can contact me at--}}
-{{--        <a href="mailto:{{ env('MAIL_FROM_ADDRESS') }}">--}}
-{{--            {{ env('MAIL_FROM_ADDRESS') }}--}}
-{{--        </a>--}}
-{{--    </p>--}}
+
+    {{--    <h1>I'm {{ $name }}</h1>--}}
+    {{--    <p>You can contact me at--}}
+    {{--        <a href="mailto:{{ env('MAIL_FROM_ADDRESS') }}">--}}
+    {{--            {{ env('MAIL_FROM_ADDRESS') }}--}}
+    {{--        </a>--}}
+    {{--    </p>--}}
 
     {{--    <h1>Contact info</h1>--}}
 
@@ -19,6 +20,12 @@
     <h1>Contact us</h1>
 
     @include('shared.alert')
+    {{--Hide the close button on this page from the success feedback message--}}
+    <style>
+        .close {
+            display: none;
+        }
+    </style>
 
     {{--Display the whole errors block on top of the page--}}
     {{--
@@ -43,7 +50,7 @@
                        class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}"
                        placeholder="Your name"
                        required
-                       value="{{ old('name') }}">
+                       value="{{ old('name', 'Demo') }}">
                 {{--Place to dispalay the error if necesseray --}}
                 <div class="invalid-feedback">{{ $errors->first('name') }}</div>
             </div>
@@ -54,7 +61,7 @@
                        class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}"
                        placeholder="Your email"
                        required
-                       value="{{ old('email') }}">
+                       value="{{ old('email', 'demo@example.com') }}">
                 {{--Place to dispalay the error if necesseray --}}
                 <div class="invalid-feedback">{{ $errors->first('email') }}</div>
             </div>
@@ -80,7 +87,7 @@
                           class="form-control {{ $errors->first('message') ? 'is-invalid' : '' }}"
                           placeholder="Your message"
                           required
-                          minlength="10">{{ old('message') }}</textarea>
+                          minlength="10">{{ old('message', "New message\nLorem ipsum") }}</textarea>
                 {{--Place to dispalay the error if necesseray --}}
                 <div class="invalid-feedback">
                     {{ $errors->first('message') }}

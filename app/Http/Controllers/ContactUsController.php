@@ -38,7 +38,7 @@ class ContactUsController extends Controller
         // Flash a success message to the session
         // error message zou ook kunnen
         // session() is a helper function that returns the current session object, on which the (non-static) flash() method can be called: session()->flash('success', 'Thank you ...')
-        session()->flash('success', 'Thank you for your message.<br>We\'ll contact you as soon as possible.');
+        session()->flash('success', 'Thank you for your message, <strong>' . $request->name . '</strong>.<br>We\'ll contact you as soon as possible.');
 
         // Redirect to the contact-us link ( NOT to view('contact')!!! )
         return redirect('contact-us');

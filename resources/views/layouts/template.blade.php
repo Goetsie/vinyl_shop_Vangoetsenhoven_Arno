@@ -36,8 +36,10 @@
 
 <script src="{{ mix('js/app.js') }}"></script>
 @yield('script_after')
+{{--Global no validate on forms during debugging (testing/making)--}}
 @if(env('APP_DEBUG'))
     <script>
+        // On evry form add the novalidate attribute
         $('form').attr('novalidate', 'true');
     </script>
 @endif

@@ -11,6 +11,7 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    // because this is public, it's available in the mail template
     public $request;
 
     /**
@@ -35,5 +36,6 @@ class ContactMail extends Mailable
             ->cc(strtolower($contact) . '@thevinylshop.com', 'The Vinyl Shop - ' . $contact)
             ->subject('The Vinyl Shop - Contact Form')
             ->markdown('email.contact');
+//            ->attach('/public/assets/vinyl_homepage.jpg');
     }
 }

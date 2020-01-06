@@ -25,6 +25,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
+    //    Redirect to home
     protected $redirectTo = '/';
 
     /**

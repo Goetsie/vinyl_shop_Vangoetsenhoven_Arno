@@ -23,6 +23,7 @@
 {{--                        @error('name')--}}
 {{--                        <div class="invalid-feedback">{{ $message }}</div>--}}
 {{--                        @enderror--}}
+                        <div id="invalid-feedback_name" class="invalid-feedback"></div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -36,6 +37,7 @@
 {{--                        @error('email')--}}
 {{--                        <div class="invalid-feedback">{{ $message }}</div>--}}
 {{--                        @enderror--}}
+                        <div id="invalid-feedback_email" class="invalid-feedback"></div>
                     </div>
 
                     <div class="form-group">

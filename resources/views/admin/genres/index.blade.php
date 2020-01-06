@@ -46,7 +46,7 @@
                 let btnClass = 'btn-success';
                 // If records not 0, overwrite values for Noty
                 if (records > 0) {
-                    text += `<p>ATTENTION: you are going to delete ${records} records at the same time!</p>`;
+                    text += `<p><b>ATTENTION:</b> you are going to delete <b>${records} records</b> at the same time!</p>`;
                     btnText = `Delete genre + ${records} records`;
                     btnClass = 'btn-danger';
                     type = 'error';
@@ -115,6 +115,7 @@
                         $.each(e.responseJSON.errors, function (key, value) {
                             msg += `<li>${value}</li>`;
                         });
+
                         msg += '</ul>';
                         // Noty the errors
                         new Noty({

@@ -4,12 +4,14 @@ export function hello(){
 
 $(function(){
     $('nav i.fas').addClass('fa-fw mr-1');
+    // bij een form field dat required is word een rode asterix toegevoegd
     $('input[required], select[required], textarea[required]').each(function () {
         $(this).closest('.form-group')
             .find('label')
             .append('<sup class="text-danger mx-1">*</sup>');
     });
-    // Enable bootstrap tooltip buttons
+
+    // Enable bootstrap tooltips on buttons
     $('[data-toggle="tooltip"]').tooltip({
         // tags gebruiken in tooltip
         'html' : true,
