@@ -36,8 +36,29 @@
 
                     {{--                    Dropdown list om te sorteren via ARRAY --}}
                     @foreach($sortArray as $i => $order)
-                        <option value="{{$i}}" {{request()->sort == $i ? 'selected' : ''}} >{{
-                            $order['name'] }}
+                        <option value="{{$i}}" {{request()->sort == $i ? 'selected' : ''}} >
+
+                            {{--                            With arrow from array (->)      --}}
+                            {{--                            {{ $order['name'] }}            --}}
+
+                            {{--
+                                With better looking arrow (&rarr;)
+                                We use the array, but transform the name to replace the original arrow
+                                Only split when order name is not "Admin" or "Not active"
+                            --}}
+                            {{--                            @if ($order['name'] == 'Not active' || $order['name'] == 'Admin')--}}
+                            @if (in_array('active', $order) || in_array('admin', $order))
+
+
+                            {{--    You can also see of a certain string ('admin' or 'active') appears in the main string   --}}
+                            {{--                            @if (strpos($order['name'], 'active') || strpos($order['name'], 'dmin'))--}}
+
+                            {{$order['name']}}
+
+                            @else
+                            {{ substr($order['name'], 0, (strpos($order['name'], ' ')+3)) }} &rarr; {{ substr($order['name'], (strlen($order['name'])-2), strlen($order['name'])) }}
+                            @endif
+
                         </option>
                     @endforeach
 
